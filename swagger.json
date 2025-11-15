@@ -5,7 +5,7 @@
     "description": "A simple CRUD API to manage contacts",
     "version": "1.0.0"
   },
-  "host": "https://cse341-node-adi2.onrender.com",
+  "host": "cse341-node-adi2.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
