@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyparser.json());
-
+// CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -19,8 +19,12 @@ app.use((req, res, next) => {
 });
 
 /* app.use(express.json()); */
-
+/* app.use('/api-docs', require('./swagger')); */
 app.use('/', require('./routes'));
+/* 
+app.use('/contacts', require('./routes/contacts'));
+
+app.use('/cars', require('./routes/cars')); */
 
 
 mongodb.initDb((err) => {
@@ -28,6 +32,6 @@ mongodb.initDb((err) => {
     console.log(err);
   }
   else {
-    app.listen(port, () => {console.log(`Databse is listening and node Running on port ${port}`);});
+    app.listen(port, () => {console.log(`Database is listening and node Running on port ${port}`);});
     }
 });
