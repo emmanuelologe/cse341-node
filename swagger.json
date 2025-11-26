@@ -5,10 +5,9 @@
     "description": "A simple CRUD API for managing both contacts and cars collections",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-node-adi2.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
