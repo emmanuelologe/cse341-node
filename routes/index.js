@@ -1,20 +1,33 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 
-router.use( '/', require('./swagger') );
+// Swagger
+router.use('/', require('./swagger'));
 
-/* router.get('/', (req, res) => { res.send('Hello World!'); });
- */
-router.use( '/contacts', require('./contacts') );
-router.use( '/cars', require('./cars') );
+// Collections
+router.use('/contacts', require('./contacts'));
+router.use('/cars', require('./cars'));
 
-router.get('/login', passport.authenticate('github'), req, res => {});
+// GitHub login
+router.get('/login', passport.authenticate('github', { scope: ['user:email'] }));
 
-router.get('/logout', function(req, res){
-  req.logout( function(err) {
-    if (err) { return next(err); }
+// GitHub callback
+router.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/api-docs' }),
+  (req, res) => {
+    req.session.user = req.user;
+    res.redirect('/');
+  }
+);
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout(function (err) {
+    if (err) return next(err);
     res.redirect('/');
   });
 });
-
 
 module.exports = router;
